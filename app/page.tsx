@@ -1,65 +1,97 @@
-import Image from "next/image";
+import Link from "next/link";
+import { demoBooks, demoCategories } from "../lib/demoData";
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="v-stack" style={{ gap: "1.5rem" }}>
+      <section className="grid-2">
+        <div className="v-stack">
+          <h1>Library Management System</h1>
+          <p className="muted">
+            Simple wireframe for browsing, borrowing, and managing books across
+            branches.
           </p>
+
+          <div className="h-stack">
+            <Link href="/books" className="button-link">
+              Browse all books
+            </Link>
+            <Link href="/login" className="button-link">
+              Login as member or staff
+            </Link>
+          </div>
+
+          <div className="card">
+            <div className="card-header">
+              <div className="card-title">Quick actions</div>
+            </div>
+            <ul style={{ paddingLeft: "1.1rem", margin: 0, fontSize: "0.85rem" }}>
+              <li>View catalogue by category</li>
+              <li>Open a book details page and see borrowing rules</li>
+              <li>Jump to member or staff dashboards</li>
+            </ul>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <aside className="card">
+          <div className="card-header">
+            <div className="card-title">Browse by category</div>
+          </div>
+          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+            {demoCategories.map((cat) => (
+              <li
+                key={cat}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "0.3rem 0",
+                  borderBottom: "1px dashed #ccc",
+                  fontSize: "0.85rem",
+                }}
+              >
+                <span>{cat}</span>
+                <Link href={`/books?category=${encodeURIComponent(cat)}`}>
+                  <span className="muted" style={{ fontSize: "0.8rem" }}>
+                    View
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </section>
+
+      <section className="card">
+        <div className="card-header">
+          <div className="card-title">Recently added books</div>
         </div>
-      </main>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Branch</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {demoBooks.map((book) => (
+              <tr key={book.id}>
+                <td>
+                  <Link href={`/books/${book.id}`}>{book.title}</Link>
+                </td>
+                <td>{book.author}</td>
+                <td>{book.category}</td>
+                <td>{book.branch}</td>
+                <td>
+                  <span className="badge">{book.status}</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
     </div>
   );
 }
