@@ -33,3 +33,15 @@ export interface BorrowingRow extends RowDataPacket {
   fine_amount?: number | null;
   borrowing_status: string;
 }
+
+interface BranchRow extends RowDataPacket {
+  branch_id: number;
+  branch_name: string;
+  branch_address: string;
+}
+
+interface CategoryRow extends RowDataPacket {
+  category_id: number;
+  category_name: string;
+  description: string | null;
+}

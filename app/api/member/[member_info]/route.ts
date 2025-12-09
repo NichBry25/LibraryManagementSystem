@@ -55,5 +55,5 @@ export async function GET(
     );
   }
 
-  return NextResponse.json({ success: true, activeMembers: rows });
+  return NextResponse.json({ success: true, member_info: rows });
 }

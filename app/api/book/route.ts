@@ -10,12 +10,9 @@ export async function GET() {
       b.year_published,
       b.book_status,
       b.is_digital,
-
       a.first_name AS author_first,
       a.last_name AS author_last,
-
       c.category_name,
-
       br.branch_name
     FROM book b
     JOIN author a ON b.author_id = a.author_id
@@ -33,5 +30,5 @@ export async function GET() {
     );
   }
 
-  return NextResponse.json({ success: true, books: rows });
+  return NextResponse.json({ success: true, book: rows });
 }

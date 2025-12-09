@@ -69,5 +69,5 @@ export async function GET(
     );
   }
 
-  return NextResponse.json({ success: true, borrowings: rows });
+  return NextResponse.json({ success: true, member_late_fees: rows });
 }

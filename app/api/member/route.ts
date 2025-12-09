@@ -27,5 +27,5 @@ export async function GET() {
     );
   }
 
-  return NextResponse.json({ success: true, activeMembers: rows });
+  return NextResponse.json({ success: true, members: rows });
 }
