@@ -34,6 +34,12 @@ export interface BorrowingRow extends RowDataPacket {
   borrowing_status: string;
 }
 
+interface AuthorRow extends RowDataPacket {
+  author_id: number;
+  first_name: string;
+  last_name: string;
+}
+
 interface BranchRow extends RowDataPacket {
   branch_id: number;
   branch_name: string;
