@@ -22,13 +22,13 @@ export async function GET(
     SELECT 
       b.book_id,
       b.title,
-      b.year_published,
-      b.book_status,
-      b.is_digital,
-      a.first_name AS author_first,
-      a.last_name AS author_last,
+      CONCAT(a.first_name, ' ', a.last_name) AS author_name,
       c.category_name,
-      br.branch_name
+      b.year_published,
+      br.branch_name,
+      b.book_status,
+      b.is_digital
+      b.img_link
     FROM book b
     JOIN author a ON b.author_id = a.author_id
     JOIN category c ON b.category_id = c.category_id

@@ -10,6 +10,7 @@ export interface BookRow extends RowDataPacket {
   author_last: string;
   category_name: string;
   branch_name: string;
+  img_link: string;
 }
 
 export interface MemberRow extends RowDataPacket {

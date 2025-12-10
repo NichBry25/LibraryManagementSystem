@@ -18,6 +18,7 @@ export async function PUT(req: Request) {
     branch_id,
     book_status,
     is_digital,
+    img_link
   } = body;
 
   if (
@@ -28,7 +29,8 @@ export async function PUT(req: Request) {
     !year_published ||
     !branch_id ||
     !book_status ||
-    is_digital === undefined
+    !is_digital ||
+    !img_link === undefined
   ) {
     return NextResponse.json(
       { success: false, error: "Missing required fields for book update" },
@@ -46,6 +48,7 @@ export async function PUT(req: Request) {
       branch_id = ?,
       book_status = ?,
       is_digital = ?
+      img_link = ?
     WHERE book_id = ?;
   `;
 
@@ -57,6 +60,7 @@ export async function PUT(req: Request) {
     branch_id,
     book_status,
     is_digital,
+    img_link,
     book_id,
   ]);
 

@@ -1,18 +1,6 @@
 import { query } from "@/lib/sql";
 import { NextResponse } from "next/server";
-import type { RowDataPacket } from "mysql2";
-
-interface BookByCategory extends RowDataPacket {
-  book_id: number;
-  title: string;
-  author_first: string;
-  author_last: string;
-  category_name: string;
-  year_published: number;
-  branch_name: string;
-  book_status: string;
-  is_digital: number;
-}
+import { BookRow } from "@/types/db";
 
 export async function GET(
   req: Request,
@@ -34,13 +22,13 @@ export async function GET(
     SELECT
       b.book_id,
       b.title,
-      a.first_name AS author_first,
-      a.last_name AS author_last,
+      CONCAT(a.first_name, ' ', a.last_name) AS author_name,
       c.category_name,
       b.year_published,
       br.branch_name,
       b.book_status,
       b.is_digital
+      b.img_link
     FROM book b
     JOIN category c ON b.category_id = c.category_id
     JOIN author a ON b.author_id = a.author_id

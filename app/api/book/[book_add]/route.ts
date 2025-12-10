@@ -17,6 +17,7 @@ export async function POST(req: Request) {
     branch_id,
     book_status,
     is_digital,
+    img_link
   } = body;
 
   if (
@@ -26,7 +27,8 @@ export async function POST(req: Request) {
     !year_published ||
     !branch_id ||
     !book_status ||
-    is_digital === undefined
+    !is_digital ||
+    !img_link === undefined
   ) {
     return NextResponse.json(
       { success: false, error: "Missing required book fields" },
@@ -42,9 +44,10 @@ export async function POST(req: Request) {
       year_published,
       branch_id,
       book_status,
-      is_digital
+      is_digital,
+      img_link
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?);
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?);
   `;
 
   const { rows, error } = await query<CreateBookRow>(sql, [
@@ -55,6 +58,7 @@ export async function POST(req: Request) {
     branch_id,
     book_status,
     is_digital,
+    img_link
   ]);
 
   if (error) {
